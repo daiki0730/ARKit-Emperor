@@ -35,9 +35,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
-
+        configuration.planeDetection = [.horizontal, .vertical]
+        configuration.environmentTexturing = .automatic
         // Run the view's session
-        sceneView.session.run(configuration)
+        sceneView.session.run(configuration, options: [])
     }
     
     override func viewWillDisappear(_ animated: Bool) {
