@@ -47,6 +47,12 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         // Pause the view's session
         sceneView.session.pause()
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let ship = SCNScene(named: "art.scnassets/ship.scn")!;
+        let shipNode = ship.rootNode.childNodes.first!;
+        sceneView.scene.rootNode.addChildNode(shipNode);
+    }
 
     // MARK: - ARSCNViewDelegate
     
