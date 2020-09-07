@@ -49,6 +49,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let ship = SCNScene(named: "art.scnassets/ship.scn")!;
         let shipNode = ship.rootNode.childNodes.first!;
