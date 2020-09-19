@@ -52,6 +52,31 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let ship = SCNScene(named: "art.scnassets/ship.scn")!;
         let shipNode = ship.rootNode.childNodes.first!;
+        shipNode.scale = SCNVector3(0.1,0.1,0.1)
+        
+        //　カメラ座標系で30cm前
+        let infrontCamera = SCNVector3Make(0, 0, -0.3)
+        
+        guard let cameraNode = sceneView.pointOfView else{
+            return
+        }
+        
+        // ワールド座標系
+        let pointInWorld = cameraNode.convertPosition(infrontCamera, to: nil)
+        
+        //スクリーン座標系へ
+        var screenPosition = sceneView.projectPoint(pointInWorld)
+        
+        //スクリーン座標系
+        guard let location: CGPoint = touches.first?.location(in: sceneView) else {
+            return
+        }
+        screenPosition.x = Float(location.x)
+        screenPosition.y = Float(location.y)
+        
+        let finalPosition = sceneView.unprojectPoint(screenPosition)
+        
+        shipNode.position = finalPosition
         sceneView.scene.rootNode.addChildNode(shipNode);
     }
 
